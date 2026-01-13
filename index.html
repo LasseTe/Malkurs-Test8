@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Malkurs – Termine buchen, Kursinfos, und tägliche kunstphilosophische Weisheiten." />
+  <title>Malkurs – Atelier & Termine</title>
+  <style>
+    :root{
+      --bg:#0b0d12;
+      --panel:#121524;
+      --panel2:#0f1220;
+      --text:#e9ecf1;
+      --muted:#aab2c0;
+      --brand:#8ad4ff;
+      --brand2:#c6a7ff;
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 15% 10%, rgba(138,212,255,.14), transparent 55%),
+                  radial-gradient(900px 700px at 80% 20%, rgba(198,167,255,.12), transparent 60%),
+                  radial-gradient(700px 700px at 60% 90%, rgba(255,200,120,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:1100px; margin:0 auto; padding:28px 18px 60px; }
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:14px 14px; border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:999px; box-shadow: var(--shadow);
+      position:sticky; top:14px; z-index:10; backdrop-filter: blur(10px);
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px; padding-left:10px;
+      font-weight:650; letter-spacing:.2px;
+    }
+    .dot{
+      width:12px; height:12px; border-radius:99px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 0 6px rgba(138,212,255,.12);
+    }
+    nav{ display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end; }
+    nav a{
+      padding:10px 12px; border-radius:999px; color:var(--muted);
+      border:1px solid transparent;
+    }
+    nav a:hover{ color:var(--text); border-color:var(--line); background:rgba(255,255,255,.04); }
+
+    .hero{ margin-top:22px; display:grid; grid-template-columns: 1.2fr .8fr; gap:18px; align-items:stretch; }
+    @media (max-width: 920px){ .hero{ grid-template-columns:1fr; } header{ position:relative; top:auto; } }
+
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .inner{ padding:22px; }
+
+    h1{ margin:0 0 10px; font-size: clamp(28px, 3.2vw, 44px); line-height:1.12; letter-spacing:.2px; }
+    .lead{ margin:0; color:var(--muted); font-size: 16px; max-width: 58ch; }
+
+    .ctaRow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px; border-radius: 999px;
+      border:1px solid var(--line); background:rgba(255,255,255,.04);
+      color:var(--text); font-weight:600;
+    }
+    .btn.primary{
+      border-color: transparent;
+      background: linear-gradient(135deg, rgba(138,212,255,.95), rgba(198,167,255,.92));
+      color:#081018;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .pillRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background: rgba(0,0,0,.18); color:var(--muted); font-size: 13px;
+    }
+
+    .quoteCard{ display:flex; flex-direction:column; height:100%; }
+    .quoteTop{
+      padding:18px 20px;
+      border-bottom:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.00));
+    }
+    .quoteTop .kicker{
+      font-size:12px; color:var(--muted); letter-spacing:.18em; text-transform:uppercase;
+    }
+    blockquote{ margin:0; padding:18px 20px 0; }
+    blockquote p{
+      margin:0; font-size: 18px; line-height:1.45;
+    }
+    .meta{
+      padding:10px 20px 18px; color:var(--muted); font-size: 13px;
+      display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+    }
+    .meta code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: 12px; color: rgba(233,236,241,.85);
+      background: rgba(0,0,0,.22); border:1px solid var(--line);
+      padding:3px 8px; border-radius:999px;
+    }
+    details{
+      margin: 0 20px 18px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+    summary{
+      cursor:pointer;
+      padding:12px 12px;
+      color:var(--muted);
+      user-select:none;
+      font-weight:600;
+    }
+    .archive{
+      padding:0 12px 12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .archive ol{ margin:0; padding-left:18px; }
+    .archive li{ margin: 8px 0; }
+
+    section{ margin-top:18px; }
+    .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    @media (max-width: 920px){ .grid2{ grid-template-columns:1fr; } }
+
+    h2{ margin:0 0 10px; font-size: 20px; letter-spacing:.2px; }
+    .muted{ color:var(--muted); margin:0; }
+
+    .list{
+      margin:12px 0 0; padding:0; list-style:none;
+      display:grid; gap:10px;
+    }
+    .list li{
+      padding:12px 12px; border:1px solid var(--line); border-radius:14px;
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+    }
+    .list b{ color:var(--text); }
+
+    /* Calendly container */
+    .calWrap{
+      padding: 14px;
+      background: rgba(0,0,0,.18);
+      border-top: 1px solid var(--line);
+    }
+    .footer{
+      margin-top:22px;
+      padding:18px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Malkurs · Atelier</span>
+      </div>
+      <nav aria-label="Hauptnavigation">
+        <a href="#kurs">Kurs</a>
+        <a href="#weisheit">Weisheit</a>
+        <a href="#termine">Termine</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="card">
+          <div class="inner">
+            <h1>Malerei lernen – Technik, Wahrnehmung, Ausdruck</h1>
+            <p class="lead">
+              Ein praxisorientierter Malkurs mit Fokus auf Bildaufbau, Farbe, Lichtführung und individueller Bildsprache –
+              von den Grundlagen bis zur vertieften künstlerischen Arbeit.
+            </p>
+
+            <div class="ctaRow">
+              <a class="btn primary" href="#termine">Termin buchen</a>
+              <a class="btn" href="#kurs">Kursdetails</a>
+            </div>
+
+            <div class="pillRow" aria-label="Kursmerkmale">
+              <span class="pill">Acryl / Öl / Mixed Media</span>
+              <span class="pill">Komposition & Farbtheorie</span>
+              <span class="pill">Individuelles Feedback</span>
+              <span class="pill">Einzel- oder Kleingruppe</span>
+            </div>
+          </div>
+        </div>
+
+        <section id="weisheit" class="card quoteCard" aria-label="Tägliche kunstphilosophische Weisheit">
+          <div class="quoteTop">
+            <div class="kicker">TAGESWEISHEIT · KUNSTPHILOSOPHIE</div>
+          </div>
+
+          <blockquote>
+            <p id="quoteText">„Lädt …“</p>
+          </blockquote>
+          <div class="meta">
+            <span id="quoteAuthor">—</span>
+            <code id="quoteIndex">#</code>
+            <code id="quoteDate">Datum</code>
+          </div>
+
+          <details>
+            <summary id="archiveSummary">Zitatarchiv (wird geladen …)</summary>
+            <div class="archive">
+              <ol id="archiveList"></ol>
+            </div>
+          </details>
+        </section>
+      </div>
+
+      <section id="kurs" class="grid2">
+        <div class="card">
+          <div class="inner">
+            <h2>Kursprofil</h2>
+            <p class="muted">
+              Wir arbeiten an Motivwahl, Komposition, Tonwerten, Farbharmonie sowie an der Fähigkeit,
+              einen visuellen Gedanken stringent in ein Bild zu übersetzen.
+            </p>
+            <ul class="list">
+              <li><b>Struktur:</b> Warm-up, Technikteil, freies Arbeiten, Reflexion.</li>
+              <li><b>Niveau:</b> Einsteiger:innen bis Fortgeschrittene (differenziertes Feedback).</li>
+              <li><b>Material:</b> Empfehlungsliste oder Nutzung vorhandener Ateliermaterialien (nach Absprache).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="inner">
+            <h2>Was du mitnimmst</h2>
+            <ul class="list">
+              <li><b>Sehen lernen:</b> Proportion, Negativformen, Blickführung.</li>
+              <li><b>Farbpraxis:</b> Mischen, Temperatur, Kontraste, Sättigung.</li>
+              <li><b>Maltechnik:</b> Schichtaufbau, Kanten, Lasuren, Textur.</li>
+              <li><b>Bildlogik:</b> Stimmigkeit zwischen Idee, Form und Material.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="termine" class="card" aria-label="Termine buchen">
+        <div class="inner">
+          <h2>Termine & Buchung</h2>
+          <p class="muted">
+            Buche deinen Termin direkt über den Kalender. Du erhältst im Anschluss die Bestätigung und ggf. weitere Infos.
+          </p>
+        </div>
+
+        <div class="calWrap">
+          <!-- Calendly Inline-Widget Beginn -->
+          <div class="calendly-inline-widget"
+               data-url="https://calendly.com/lasse-teunis/neues-meeting"
+               style="min-width:320px;height:700px;"></div>
+          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+          <!-- Calendly Inline-Widget Ende -->
+        </div>
+      </section>
+
+      <section id="kontakt" class="footer" aria-label="Kontakt">
+        <div>
+          <b style="color:var(--text)">Kontakt</b><br />
+          <span>Schreib mir: <span style="color:var(--text)">kontakt@deine-domain.de</span></span>
+        </div>
+        <div>
+          <span>Ort: <span style="color:var(--text)">Dein Atelier / Online</span></span>
+        </div>
+        <div>
+          <span style="font-size:12px">© <span id="year"></span> Malkurs · Atelier</span>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // --- Tägliche Weisheit: deterministisch nach Europe/Berlin ---
+    const QUOTES = [
+      // Oscar Wilde – Preface to The Picture of Dorian Gray
+      { text: "The artist is the creator of beautiful things.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "To reveal art and conceal the artist is art’s aim.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "The critic is he who can translate into another manner or a new material his impression of beautiful things.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "The highest as the lowest form of criticism is a mode of autobiography.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "Those who find ugly meanings in beautiful things are corrupt without being charming.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "Those who find beautiful meanings in beautiful things are the cultivated.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "There is no such thing as a moral or an immoral book.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "Books are well written, or badly written. That is all.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "All art is at once surface and symbol.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "It is the spectator, and not life, that art really mirrors.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "Diversity of opinion about a work of art shows that the work is new, complex, and vital.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "We can forgive a man for making a useful thing as long as he does not admire it.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "The only excuse for making a useless thing is that one admires it intensely.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+      { text: "All art is quite useless.", author: "Oscar Wilde", work: "The Picture of Dorian Gray (Preface)", year: "1891" },
+
+      // Leo Tolstoy – What Is Art?
+      { text: "If only the spectators or auditors are infected by the feelings which the author has felt, it is art.", author: "Leo Tolstoy", work: "What Is Art?", year: "1897" },
+      { text: "To evoke in oneself a feeling one has once experienced, and having evoked it in oneself then, by means of movements, lines, colours, sounds, or forms expressed in words, so to transmit that feeling that others may experience the same feeling—this is the activity of art.", author: "Leo Tolstoy", work: "What Is Art?", year: "1897" },
+      { text: "Art is a human activity, consisting in this, that one man consciously, by means of certain external signs, hands on to others feelings he has lived through, and that other people are infected by these feelings, and also experience them.", author: "Leo Tolstoy", work: "What Is Art?", year: "1897" },
+
+      // Wassily Kandinsky – Concerning the Spiritual in Art / Über das Geistige in der Kunst
+      { text: "Generally speaking, colour is a power which directly influences the soul.", author: "Wassily Kandinsky", work: "Concerning the Spiritual in Art", year: "1911/1912" },
+      { text: "Colour is the keyboard, the eyes are the hammers, the soul is the piano with many strings.", author: "Wassily Kandinsky", work: "Concerning the Spiritual in Art", year: "1911/1912" },
+      { text: "IT IS EVIDENT THEREFORE THAT COLOUR HARMONY MUST REST ONLY ON A CORRESPONDING VIBRATION IN THE HUMAN SOUL; AND THIS IS ONE OF THE GUIDING PRINCIPLES OF THE INNER NEED.", author: "Wassily Kandinsky", work: "Concerning the Spiritual in Art", year: "1911/1912" },
+      { text: "Jedes Kunstwerk ist Kind seiner Zeit, oft ist es Mutter unserer Gefühle.", author: "Wassily Kandinsky", work: "Über das Geistige in der Kunst", year: "1912" },
+
+      // Paul Klee – Creative Credo
+      { text: "Art does not reproduce the visible but makes visible.", author: "Paul Klee", work: "Creative Credo", year: "1920" },
+      { text: "The purer the graphic work, that is, the more emphasis it puts on the basic formal elements, the less well-suited it will be to the realistic representation of visible things.", author: "Paul Klee", work: "Creative Credo", year: "1920" },
+
+      // John Berger – Ways of Seeing
+      { text: "Seeing comes before words.", author: "John Berger", work: "Ways of Seeing (Chapter 1)", year: "1972" },
+      { text: "The relation between what we see and what we know is never settled.", author: "John Berger", work: "Ways of Seeing (Chapter 1)", year: "1972" },
+      { text: "The way we see things is affected by what we know or what we believe.", author: "John Berger", work: "Ways of Seeing (Chapter 1)", year: "1972" },
+      { text: "We only see what we look at. To look is an act of choice.", author: "John Berger", work: "Ways of Seeing (Chapter 1)", year: "1972" },
+
+      // Marcel Duchamp – The Creative Act (Zitat über ZKM belegt)
+      { text: "All in all, the creative act is not performed by the artist alone; the spectator brings the work in contact with the external world by deciphering and interpreting its inner qualification and thus adds his contribution to the creative act.", author: "Marcel Duchamp", work: "Statement (1957), cited by ZKM", year: "1957" },
+
+      // Susan Sontag – Against Interpretation
+      { text: "In place of a hermeneutics we need an erotics of art.", author: "Susan Sontag", work: "Against Interpretation", year: "1964" }
+    ];
+
+    function berlinYMD(){
+      const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Europe/Berlin', year:'numeric', month:'2-digit', day:'2-digit'
+      }).formatToParts(new Date());
+      const get = (t) => parts.find(p => p.type === t)?.value;
+      return `${get('year')}-${get('month')}-${get('day')}`;
+    }
+
+    function hashString(str){
+      // simple, stable hash (not cryptographic)
+      let h = 2166136261;
+      for (let i = 0; i < str.length; i++){
+        h ^= str.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return (h >>> 0);
+    }
+
+    function renderDailyQuote(){
+      const ymd = berlinYMD();
+      const idx = hashString(ymd) % QUOTES.length;
+      const q = QUOTES[idx];
+
+      document.getElementById('quoteText').textContent = `„${q.text}“`;
+      document.getElementById('quoteAuthor').textContent = `— ${q.author} · ${q.work} (${q.year})`;
+      document.getElementById('quoteIndex').textContent = `#${idx + 1}/${QUOTES.length}`;
+      document.getElementById('quoteDate').textContent =
+        new Intl.DateTimeFormat('de-DE', { timeZone:'Europe/Berlin', dateStyle:'full' }).format(new Date());
+
+      // Archiv
+      const summary = document.getElementById('archiveSummary');
+      const list = document.getElementById('archiveList');
+      summary.textContent = `Zitatarchiv (${QUOTES.length})`;
+
+      list.innerHTML = "";
+      QUOTES.forEach((item, i) => {
+        const li = document.createElement('li');
+        li.textContent = `${i+1}. “${item.text}” — ${item.author}, ${item.work} (${item.year})`;
+        list.appendChild(li);
+      });
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderDailyQuote();
+  </script>
+</body>
+</html>
